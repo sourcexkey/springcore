@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="client" class="com.epam.sprint.core.entity.Client"/>
+    <bean id="consoleEventLogger" class="com.epam.sprint.core.logger.ConsoleEventLogger"/>
+    <bean id="fileEventLogger" class="com.epam.sprint.core.logger.FileEventLogger"
+          init-method="init">
+        <constructor-arg value="test.log"/>
+    </bean>
+    <bean id="cacheFileEventLogger" class="com.epam.sprint.core.logger.CacheFileEventLogger"
+          destroy-method="destroy">
+        <constructor-arg value="test.log"/>
+        <constructor-arg value="5"/>
+    </bean>
+    <bean id="app" class="com.epam.sprint.core.App">
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="consoleEventLogger"/>
+    </bean>
+    <bean id="dateFormatter" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+    <bean id="event" class="com.epam.sprint.core.entity.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg ref="dateFormatter"/>
+    </bean>
+</beans>

@@ -1,3 +1,5 @@
+package com.epam.sprint.core.entity;
+
 /**
  * @author Denys_Uzhvii
  */
